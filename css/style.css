@@ -1,0 +1,82 @@
+html,
+body {
+	background-color: floralwhite;
+    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+body{
+    margin-top: 80px;
+}
+
+body *{
+	border: inner-solid 1px black;
+}
+
+div.container{
+    margin: 0 auto;
+	width: 500px;
+}
+
+div.center{
+	margin: 0 auto;
+	width: 100%;
+}
+
+div.title h1,
+div.title h2{
+	display: block;
+}
+
+h1#title{
+	color: slategray;
+    font-size: 80px;
+    font-weight: bold;
+    text-align: center;
+}
+
+h4#timer{
+    text-align: center;
+}
+
+span#game-clock{
+}
+
+div#game-inputs{
+	float: right;
+	margin-top: 320px;
+}
+
+div#game-inputs>table td{
+	height: 40px;
+	width: 40px;
+}
+div#game-inputs>table td>div{
+	color: slategray;
+    font-size: 25px;
+    font-weight: bold;
+}   
+
+div#game-board-tiles{
+	float: left;
+	height: 500px;
+	position: relative;
+	width: 60%;
+}
+
+div#incoming-tiles{
+	bottom: 0;
+	width: 100%;
+	position: absolute;
+}
+
+div.game-tile{
+    display: inline-block;
+	text-align: center;
+	width: 100%;
+}
+div.arrow-down,
+div.arrow-right,
+div.arrow-left,
+div.arrow-up{
+	text-align: center;
+}
