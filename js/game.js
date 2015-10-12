@@ -2,11 +2,15 @@ function Game(element,
 		timer,
 		clock,
 		board,
-		input){
+		input,
+		settings){
 	
 	var curTick = 0;
-	var ticksPerTile = 40;
+	var currentMod = settings.mod;
+	var ticksPerTile = settings.ticksPerTile;
+	var gameOverTileCount = settings.gameOverTileCount;
 	var that = this;
+	var stopped;
 	
 	var ontick = function(e){
 		clock.setTimeInMilliseconds(
@@ -14,10 +18,10 @@ function Game(element,
 		clock.updateDisplay();
 		
 		if(curTick == 0){
-			board.addPiece();
+			board.addPiece(randomPiece());
 		}
-		if(board.tilesInQueue() == 20){
-			alert("game over");
+		if(board.tilesInQueue() > gameOverTileCount && running){
+			// Game Over
 			that.stop();
 		}
 		
@@ -25,11 +29,29 @@ function Game(element,
 		curTick %= ticksPerTile;
 	};
 	
+	var randomPiece = function(){
+		var isModPiece = Math.random() > 0.9;
+		console.log(isModPiece);
+		return new DirectionBlock(
+			Math.floor((Math.random() * currentMod)),
+			currentMod,
+			isModPiece);
+	};
+	
 	var inputListener = function(input){
-		board.handleInput(input);
+		var isGoodInput = board.handleInput(input);
+		if(isGoodInput){
+			var piece = board.popPiece();
+			if(piece.isModPiece){
+				board.shiftBy(piece.number);
+			}
+		} else {
+			board.addPiece(randomPiece());
+		}
 	};
 	
 	this.start = function(){
+		running = true;
 		timer.postMessage({
 			message: 'start'
 		});
@@ -40,6 +62,7 @@ function Game(element,
 	};
 	
 	this.stop = function(){
+		running = false;
 		timer.postMessage({
 			message: 'stop'
 		});

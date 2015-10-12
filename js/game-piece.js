@@ -1,6 +1,7 @@
-function DirectionBlock(number, mod){
+function DirectionBlock(number, mod, isModPiece){
 	this.number = number;
 	this.mod = mod;
+	this.isModPiece = isModPiece;
 	
 	this.setNumber = function(newNumber){
 		this.number = newNumber;

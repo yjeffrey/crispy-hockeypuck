@@ -2,19 +2,19 @@ function GameBoard(element, mod){
 	var gamePieces = [];
 	var $tileQueue = $(element.firstElementChild.firstElementChild);
 	
-	this.currentMod = mod;
-	
 	this.tilesInQueue = function(){
 		return gamePieces.length;
 	};
 	
-	this.addPiece = function(){
-		var piece = new DirectionBlock(
-			Math.floor((Math.random() * this.currentMod)),
-			this.currentMod);
-		var event = new CustomEvent('add', {detail: piece});
-		element.dispatchEvent(event);
+	this.addPiece = function(piece, position){
 		gamePieces.push(piece);
+		var event = new CustomEvent('add', {
+			detail: {
+				piece: piece,
+				position: position || gamePieces.length - 1
+			}
+		});
+		element.dispatchEvent(event);
 	};
 	
 	this.popPiece = function(){
@@ -36,23 +36,22 @@ function GameBoard(element, mod){
 	this.handleInput = function(inputNumber){
 		if(gamePieces.length > 0){
 			var piece = gamePieces[0];
-			if(piece.number == inputNumber || 
-				(inputNumber == piece.mod && piece.number == 0)){
-				this.popPiece();
-			} else{
-				this.addPiece();
-			}
-			this.shiftBy(inputNumber);
+			return piece.number == inputNumber || 
+				(inputNumber == piece.mod && piece.number == 0);
 		}
+		return false;
 	};
 	
 	element.addEventListener('add', function(event){
-		var number = event.detail.number;
+		var number = event.detail.piece.number;
+		var position = event.detail.position;
 		if(number == 0){
-			number = event.detail.mod;
+			number = event.detail.piece.mod;
 		}
-		var newNode = $("<div class='game-tile game-tile-" + number 
-			+ "'>"+ number + "</div>");
+		var newNode = $("<div class='game-tile " +
+			"game-tile-" + number  +
+			(event.detail.piece.isModPiece ? "game-mod-tile-" : '') +
+			"'>"+ number + "</div>");
 		$tileQueue.prepend(newNode);
 	});
 	
