@@ -6,35 +6,36 @@ function Game(element,
 		settings){
 	
 	var curTick = 0;
-	var currentMod = settings.mod;
-	var ticksPerTile = settings.ticksPerTile;
-	var gameOverTileCount = settings.gameOverTileCount;
 	var that = this;
 	var stopped;
+	
+	this.currentMod = settings.mod;
+	this.gameOverTileCount = settings.gameOverTileCount;
+	this.isModChance = settings.isModChance;
+	this.ticksPerTile = settings.ticksPerTile;
+	
 	
 	var ontick = function(e){
 		clock.setTimeInMilliseconds(
 			clock.getTimeInMilliseconds() + TIMER_RATE);
 		clock.updateDisplay();
 		
-		if(curTick == 0){
+		if(curTick%that.ticksPerTile == 0){
 			board.addPiece(randomPiece());
 		}
-		if(board.tilesInQueue() > gameOverTileCount && running){
+		if(board.tilesInQueue() > that.gameOverTileCount && running){
 			// Game Over
 			that.stop();
 		}
 		
 		++curTick;
-		curTick %= ticksPerTile;
 	};
 	
 	var randomPiece = function(){
-		var isModPiece = Math.random() > 0.9;
-		console.log(isModPiece);
+		var isModPiece = Math.random() < that.isModChance;
 		return new DirectionBlock(
-			Math.floor((Math.random() * currentMod)),
-			currentMod,
+			Math.floor((Math.random() * that.currentMod)),
+			that.currentMod,
 			isModPiece);
 	};
 	

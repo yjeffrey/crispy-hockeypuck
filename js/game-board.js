@@ -48,9 +48,11 @@ function GameBoard(element, mod){
 		if(number == 0){
 			number = event.detail.piece.mod;
 		}
-		var newNode = $("<div class='game-tile " +
-			"game-tile-" + number  +
-			(event.detail.piece.isModPiece ? "game-mod-tile-" : '') +
+		var newNode = $("<div class='" +
+			"arrow game-tile " +
+			"game-tile-" + number  + " " +
+			"arrow-" + map(number) + " " +
+			(event.detail.piece.isModPiece ? "game-modtile" : '') +
 			"'>"+ number + "</div>");
 		$tileQueue.prepend(newNode);
 	});
@@ -70,6 +72,21 @@ function GameBoard(element, mod){
 			}
 			var el = $(children[i]);
 			el.text(number);
+			el.removeClass("arrow-up arrow-down arrow-left arrow-right");
+			el.addClass("arrow-" + map(number));
 		}
 	});
+	
+	var map = function(number){
+		switch(number){
+			case 1:
+				return 'up';
+			case 2:
+				return 'right';
+			case 3:
+				return 'down';
+			case 4:
+				return 'left';
+		}
+	};
 }

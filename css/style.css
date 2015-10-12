@@ -59,8 +59,9 @@ div#game-inputs>table td>div{
 div#game-board-tiles{
 	float: left;
 	height: 500px;
+	margin-left: 100px;
 	position: relative;
-	width: 60%;
+	width: 40%;
 }
 
 div#incoming-tiles{
@@ -70,13 +71,14 @@ div#incoming-tiles{
 }
 
 div.game-tile{
-    display: inline-block;
+	display: block;
 	text-align: center;
-	width: 100%;
 }
-div.arrow-down,
-div.arrow-right,
-div.arrow-left,
-div.arrow-up{
+
+.arrow{
 	text-align: center;
+}
+
+.game-modtile{
+	color: red;
 }
