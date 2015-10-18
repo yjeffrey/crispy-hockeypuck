@@ -2,7 +2,7 @@ html,
 body {
 	height:100%;
 	width:100%;
-	background-color: white;
+	background-color: #FEFEFE;
     font-family: "Helvetica Neue","Clear Sans", Arial, sans-serif;
 }
 
@@ -13,10 +13,49 @@ body {
   	height:100%;
   	width:100%;
 }
+/*InfoContainer*/
+.infoContainer{
+	width:40%;
+	height:100%;
+	float:right;
+	display:table;
 
-div.center{
-	margin: 0 auto;
-	width: 100%;
+}
+
+div#game-title{
+	display: table-cell;
+    vertical-align: middle;
+}
+
+h1#title{
+    font-weight: 200;
+    text-align: center;
+    font-size: 2em;
+    text-transform: uppercase;
+    color:#CDCDCD;
+}
+
+h4#timer{
+    text-align: center;
+    font-size: 4.5em;
+    color:#CDCDCD;
+}
+
+/*End InfoContainer*/
+
+/*Game Starts*/
+.gameContainer{
+	width:60%;
+	height:100%;
+	float:right;
+	background:white;
+	box-shadow:3px 0px 15px rgba(0, 0, 0, 0.13);
+}
+
+.container #game{
+	height: 100%;
+    width: 50%;
+    margin: 0 auto;
 }
 
 div.title h1,
@@ -24,21 +63,13 @@ div.title h2{
 	display: block;
 }
 
-h1#title{
-    font-weight: bold;
-    text-align: center;
-}
 
-h4#timer{
-    text-align: center;
-}
 
-span#game-clock{
-}
 
 div#game-inputs{
 	float: right;
 	margin-top: 320px;
+	display:none;
 }
 
 div#game-inputs>table td{
@@ -54,7 +85,6 @@ div#game-inputs>table td>div{
 div#game-board-tiles{
 	float: left;
 	height: 500px;
-	margin-left: 100px;
 	position: relative;
 	width: 40%;
 }
@@ -65,10 +95,7 @@ div#incoming-tiles{
 	position: absolute;
 }
 
-div.game-tile{
-	display: block;
-	text-align: center;
-}
+/*Game Ends*/
 
 .arrow{
 	text-align: center;
