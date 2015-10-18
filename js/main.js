@@ -2,6 +2,7 @@ var IS_MOD_CHANCE = 0.10;
 var GAME_OVER_LIMIT = 20;
 var STARTING_MOD = 4;
 var TICKS_PER_TILE = 40;
+var TILES_PER_DROP = 1;
 var TIMER_RATE = 10;
 
 var EVENT_TIMER_NAME = 'event.timer.name';
@@ -14,7 +15,8 @@ var settings = {
 	isModChance: IS_MOD_CHANCE,
 	ticksPerTile: TICKS_PER_TILE,
 	gameOverTileCount: GAME_OVER_LIMIT,
-	mod: STARTING_MOD
+	mod: STARTING_MOD,
+	tilesPerDrop: TILES_PER_DROP
 };
 
 $(document).ready(function(){

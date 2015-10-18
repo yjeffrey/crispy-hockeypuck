@@ -5,15 +5,8 @@ function Game(element,
 		input,
 		settings){
 	
-	var curTick = 0;
 	var that = this;
-	var stopped;
-	
-	this.currentMod = settings.mod;
-	this.gameOverTileCount = settings.gameOverTileCount;
-	this.isModChance = settings.isModChance;
-	this.ticksPerTile = settings.ticksPerTile;
-	
+	var	curTick = 0;
 	
 	var ontick = function(e){
 		clock.setTimeInMilliseconds(
@@ -21,7 +14,9 @@ function Game(element,
 		clock.updateDisplay();
 		
 		if(curTick%that.ticksPerTile == 0){
-			board.addPiece(randomPiece());
+			for(var i = 0; i < that.tilesPerDrop; ++i){
+				board.addPiece(randomPiece());
+			}
 		}
 		if(board.tilesInQueue() > that.gameOverTileCount && running){
 			// Game Over
@@ -40,8 +35,11 @@ function Game(element,
 	};
 	
 	var inputListener = function(input){
-		var isGoodInput = board.handleInput(input);
-		if(isGoodInput){
+		console.log(input);
+		if(input.reset){
+			that.reset();
+		}
+		else if(running && input.number && board.useInput(input.number)){
 			var piece = board.popPiece();
 			if(piece.isModPiece){
 				board.shiftBy(piece.number);
@@ -52,14 +50,26 @@ function Game(element,
 	};
 	
 	this.start = function(){
+		curTick = 0;
+		this.currentMod = settings.mod;
+		this.gameOverTileCount = settings.gameOverTileCount;
+		this.isModChance = settings.isModChance;
+		this.ticksPerTile = settings.ticksPerTile;
+		this.tilesPerDrop = settings.tilesPerDrop;
+		
 		running = true;
 		timer.postMessage({
 			message: 'start'
 		});
-		input.listen(inputListener);
 	
 		clock.setTimeInMilliseconds(0);
 		clock.updateDisplay();
+	};
+	
+	this.reset = function(){
+		that.stop();
+		board.clearPieces();
+		that.start();
 	};
 	
 	this.stop = function(){
@@ -67,8 +77,8 @@ function Game(element,
 		timer.postMessage({
 			message: 'stop'
 		});
-		input.stop();
 	};
 	
+	input.listen(inputListener);
 	timer.onmessage = ontick;
 }

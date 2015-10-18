@@ -23,6 +23,12 @@ function GameBoard(element, mod){
 		return gamePieces.shift();
 	};
 	
+	this.clearPieces = function(){
+		gamePieces.length = 0;
+		var event = new CustomEvent('clear');
+		element.dispatchEvent(event);
+	};
+	
 	this.shiftBy = function(by){
 		for(var i = 0; i < gamePieces.length; ++i){
 			gamePieces[i].shiftDirection(by, 
@@ -33,7 +39,7 @@ function GameBoard(element, mod){
 		element.dispatchEvent(event);
 	};
 	
-	this.handleInput = function(inputNumber){
+	this.useInput = function(inputNumber){
 		if(gamePieces.length > 0){
 			var piece = gamePieces[0];
 			return piece.number == inputNumber || 
@@ -75,6 +81,10 @@ function GameBoard(element, mod){
 			el.removeClass("arrow-up arrow-down arrow-left arrow-right");
 			el.addClass("arrow-" + map(number));
 		}
+	});
+	
+	element.addEventListener('clear', function(event){
+		var children = $tileQueue.children().remove();
 	});
 	
 	var map = function(number){
