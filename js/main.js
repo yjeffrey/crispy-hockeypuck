@@ -46,36 +46,36 @@ var LEVELS = [
 		tilesPerDrop: 2
 	},
 	{
-		drop: 100,
+		drop: 120,
 		isModChance: 0.1,
 		mod: 5,
 		ticksPerTile: 80,
 		tilesPerDrop: 2
 	},
 	{
-		drop: 120,
-		isModChance: 0.2,
+		drop: 160,
+		isModChance: 0.15,
 		mod: 5,
 		ticksPerTile: 80,
 		tilesPerDrop: 2
 	},
 	{
-		drop: 140,
-		isModChance: 0.2,
+		drop: 200,
+		isModChance: 0.15,
 		mod: 5,
 		ticksPerTile: 120,
 		tilesPerDrop: 3
 	},
 	{
-		drop: 180,
-		isModChance: 0.25,
+		drop: 250,
+		isModChance: 0.175,
 		mod: 5,
 		ticksPerTile: 120,
 		tilesPerDrop: 3
 	},
 	{
-		drop: 230,
-		isModChance: 0.25,
+		drop: 300,
+		isModChance: 0.175,
 		mod: 5,
 		ticksPerTile: 110,
 		tilesPerDrop: 3
