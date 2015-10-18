@@ -2,23 +2,31 @@ function Game(element,
 		timer,
 		clock,
 		board,
+		level,
 		input,
-		settings){
+		gameOverTileCount,
+		levelsData){
 	
 	var that = this;
 	var	curTick = 0;
+	var dropNumber = 0;
 	
 	var ontick = function(e){
 		clock.setTimeInMilliseconds(
 			clock.getTimeInMilliseconds() + TIMER_RATE);
 		clock.updateDisplay();
 		
-		if(curTick%that.ticksPerTile == 0){
-			for(var i = 0; i < that.tilesPerDrop; ++i){
+		if(curTick % level.ticksPerTile == 0){
+			var nextLevelData = levelsData[level.number + 1];
+			if(nextLevelData != null && nextLevelData.drop <= dropNumber){
+				loadLevel(level.number + 1, nextLevelData);
+			}
+			for(var i = 0; i < level.tilesPerDrop; ++i){
 				board.addPiece(randomPiece());
 			}
+			++dropNumber;
 		}
-		if(board.tilesInQueue() > that.gameOverTileCount && running){
+		if(board.tilesInQueue() > gameOverTileCount && running){
 			// Game Over
 			that.stop();
 		}
@@ -27,17 +35,16 @@ function Game(element,
 	};
 	
 	var randomPiece = function(){
-		var isModPiece = Math.random() < that.isModChance;
+		var isModPiece = Math.random() < level.isModChance;
 		return new DirectionBlock(
-			Math.floor((Math.random() * that.currentMod)),
-			that.currentMod,
+			Math.floor((Math.random() * level.currentMod)),
+			level.currentMod,
 			isModPiece);
 	};
 	
 	var inputListener = function(input){
-		console.log(input);
 		if(input.reset){
-			that.reset();
+			that.start();
 		}
 		else if(running && input.number && board.useInput(input.number)){
 			var piece = board.popPiece();
@@ -49,27 +56,28 @@ function Game(element,
 		}
 	};
 	
+	var loadLevel = function(number, data){
+		level.load(number,
+			data.mod,
+			data.isModChance,
+			data.ticksPerTile,
+			data.tilesPerDrop);
+	};
+	
 	this.start = function(){
-		curTick = 0;
-		this.currentMod = settings.mod;
-		this.gameOverTileCount = settings.gameOverTileCount;
-		this.isModChance = settings.isModChance;
-		this.ticksPerTile = settings.ticksPerTile;
-		this.tilesPerDrop = settings.tilesPerDrop;
+		that.stop();
+		board.clearPieces();
+		curTick = dropNumber = 0;
+		
+		loadLevel(0, levelsData[0]);
+		
+		clock.setTimeInMilliseconds(0);
+		clock.updateDisplay();
 		
 		running = true;
 		timer.postMessage({
 			message: 'start'
 		});
-	
-		clock.setTimeInMilliseconds(0);
-		clock.updateDisplay();
-	};
-	
-	this.reset = function(){
-		that.stop();
-		board.clearPieces();
-		that.start();
 	};
 	
 	this.stop = function(){
