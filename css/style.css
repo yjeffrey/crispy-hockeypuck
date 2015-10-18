@@ -6,12 +6,38 @@ body {
     font-family: "Helvetica Neue","Clear Sans", Arial, sans-serif;
 }
 
+a{
+	color:#828282;
+	text-decoration:none;
+}
+
+a:hover,
+a:focus{
+	text-decoration:none;
+	color:#828282;
+}
 
 .container{
   	margin:0;
   	padding:0;
   	height:100%;
   	width:100%;
+}
+
+.creators{
+	position: absolute;
+    bottom: 0;
+    width: auto;
+    height: 7%;
+    z-index: 9000;
+    right: 1%;
+}
+
+.creators h4{
+	font-size: 0.9em;
+    color: #CDCDCD;
+    font-weight: 400;
+
 }
 /*InfoContainer*/
 .infoContainer{
