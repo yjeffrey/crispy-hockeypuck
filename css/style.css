@@ -1,25 +1,87 @@
 html,
 body {
-	background-color: floralwhite;
-    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+	height:100%;
+	width:100%;
+	background-color: #FEFEFE;
+    font-family: "Helvetica Neue","Clear Sans", Arial, sans-serif;
 }
 
-body{
-    margin-top: 80px;
+a{
+	color:#828282;
+	text-decoration:none;
 }
 
-body *{
-	border: inner-solid 1px black;
+a:hover,
+a:focus{
+	text-decoration:none;
+	color:#828282;
 }
 
-div.container{
+.container{
+  	margin:0;
+  	padding:0;
+  	height:100%;
+  	width:100%;
+}
+
+.creators{
+	position: absolute;
+    bottom: 0;
+    width: auto;
+    height: 7%;
+    z-index: 9000;
+    right: 1%;
+}
+
+.creators h4{
+	font-size: 0.9em;
+    color: #CDCDCD;
+    font-weight: 400;
+
+}
+/*InfoContainer*/
+.infoContainer{
+	width:40%;
+	height:100%;
+	float:right;
+	display:table;
+
+}
+
+div#game-title{
+	display: table-cell;
+    vertical-align: middle;
+}
+
+h1#title{
+    font-weight: 200;
+    text-align: center;
+    font-size: 2em;
+    text-transform: uppercase;
+    color:#CDCDCD;
+}
+
+h4#timer{
+    text-align: center;
+    font-size: 4.5em;
+    color:#CDCDCD;
+}
+
+/*End InfoContainer*/
+
+/*Game Starts*/
+.gameContainer{
+	width:60%;
+	height:100%;
+	float:right;
+	background:white;
+	box-shadow:3px 0px 15px rgba(0, 0, 0, 0.13);
+}
+
+.container #game{
+	height: 100%;
+    width: 50%;
     margin: 0 auto;
-	width: 500px;
-}
-
-div.center{
-	margin: 0 auto;
-	width: 100%;
 }
 
 div.title h1,
@@ -27,23 +89,13 @@ div.title h2{
 	display: block;
 }
 
-h1#title{
-	color: slategray;
-    font-size: 80px;
-    font-weight: bold;
-    text-align: center;
-}
 
-h4#timer{
-    text-align: center;
-}
 
-span#game-clock{
-}
 
 div#game-inputs{
 	float: right;
 	margin-top: 320px;
+	display:none;
 }
 
 div#game-inputs>table td{
@@ -59,7 +111,6 @@ div#game-inputs>table td>div{
 div#game-board-tiles{
 	float: left;
 	height: 500px;
-	margin-left: 100px;
 	position: relative;
 	width: 40%;
 }
@@ -70,10 +121,7 @@ div#incoming-tiles{
 	position: absolute;
 }
 
-div.game-tile{
-	display: block;
-	text-align: center;
-}
+/*Game Ends*/
 
 .arrow{
 	text-align: center;
